@@ -1,0 +1,234 @@
+
+<style>
+  @keyframes heartbeat { 0%,100%{transform:scale(1)} 25%{transform:scale(1.18)} 75%{transform:scale(1.08)} }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-10px) rotate(2deg)} }
+  @keyframes sparkle { 0%,100%{opacity:0.3;transform:scale(0.8)} 50%{opacity:1;transform:scale(1.2)} }
+  @keyframes popIn { 0%{transform:scale(0) rotate(-30deg);opacity:0} 70%{transform:scale(1.2) rotate(5deg)} 100%{transform:scale(1) rotate(0deg);opacity:1} }
+  @keyframes flyUp { 0%{transform:translateY(0) scale(1);opacity:1} 100%{transform:translateY(-120px) scale(0.4);opacity:0} }
+  @keyframes shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+  @keyframes glow { 0%,100%{box-shadow:0 8px 40px rgba(212,83,126,0.12)} 50%{box-shadow:0 8px 60px rgba(212,83,126,0.35)} }
+  @keyframes confettiFall {
+    0%{transform:translateY(-10px) rotate(0deg) scale(1);opacity:1}
+    100%{transform:translateY(180px) rotate(720deg) scale(0.3);opacity:0}
+  }
+
+  * { box-sizing: border-box; }
+
+  body { margin: 0; }
+
+  .wrap {
+    display:flex; justify-content:center; align-items:center;
+    padding:2rem 1rem 2.5rem; min-height:560px;
+    font-family: var(--font-sans);
+  }
+
+  .card {
+    background: linear-gradient(145deg,#fff0f5,#fff5f0,#fff0fa);
+    border-radius:24px; border:0.5px solid #f5c0d1;
+    padding:2.5rem 2rem 2rem; max-width:400px; width:100%;
+    text-align:center; position:relative; overflow:hidden;
+    animation:fadeInUp 0.7s ease both, glow 4s ease-in-out infinite;
+  }
+  @media(prefers-color-scheme:dark){
+    .card{background:linear-gradient(145deg,#2a1520,#251520,#2a1525);border-color:#72243e;}
+    .msg{color:#f4c0d1!important} .sub{color:#ed93b1!important}
+    .to-lbl{color:#ed93b1!important} .to-nm{color:#f4c0d1!important}
+    .badge{background:#3c1a28!important;color:#f4c0d1!important;border-color:#72243e!important}
+    .msg-box{background:#3c1a28!important;border-color:#72243e!important}
+    .msg-box p{color:#f4c0d1!important}
+    .btn{background:#4b1528!important;color:#f4c0d1!important;border-color:#72243e!important}
+    .btn:hover{background:#72243e!important}
+    .progress-bar-bg{background:#3c1a28!important}
+  }
+
+  .deco-top{position:absolute;top:16px;left:0;right:0;display:flex;justify-content:space-between;padding:0 18px;font-size:20px;pointer-events:none;}
+  .fstar{display:inline-block;animation:float 3s ease-in-out infinite;opacity:0.6;}
+  .fstar:nth-child(2){animation-delay:1s;} .fstar:nth-child(3){animation-delay:2s;}
+
+  .big-heart{font-size:64px;display:inline-block;cursor:pointer;animation:heartbeat 2s ease-in-out infinite;user-select:none;transition:transform 0.1s;}
+  .big-heart:active{transform:scale(0.9);}
+
+  .to-lbl{font-size:13px;color:#d4537e;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;}
+  .to-nm{font-size:26px;font-weight:500;color:#993556;margin-bottom:1.2rem;}
+
+  .hearts-row{display:flex;justify-content:center;gap:10px;margin-bottom:1.2rem;}
+  .mh{font-size:18px;display:inline-block;}
+  .mh:nth-child(1){animation:sparkle 1.8s ease-in-out infinite 0s;}
+  .mh:nth-child(2){animation:sparkle 1.8s ease-in-out infinite 0.3s;}
+  .mh:nth-child(3){animation:sparkle 1.8s ease-in-out infinite 0.6s;}
+  .mh:nth-child(4){animation:sparkle 1.8s ease-in-out infinite 0.9s;}
+  .mh:nth-child(5){animation:sparkle 1.8s ease-in-out infinite 1.2s;}
+
+  .msg-box{background:#fbeaf0;border:0.5px solid #f4c0d1;border-radius:16px;padding:1rem 1.25rem;margin-bottom:1.2rem;min-height:80px;display:flex;align-items:center;justify-content:center;}
+  .msg-box p{font-size:14px;color:#993556;line-height:1.7;margin:0;}
+
+  .badge{display:inline-block;background:#fbeaf0;color:#993556;font-size:12px;padding:4px 14px;border-radius:20px;border:0.5px solid #f4c0d1;margin-bottom:1.2rem;}
+
+  .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:0.5rem;}
+  .btn{background:#fbeaf0;color:#993556;border:0.5px solid #f4c0d1;border-radius:20px;padding:8px 16px;font-size:13px;cursor:pointer;font-family:var(--font-sans);transition:background 0.2s,transform 0.1s;}
+  .btn:hover{background:#f4c0d1;}
+  .btn:active{transform:scale(0.96);}
+
+  .progress-wrap{margin-bottom:1rem;}
+  .progress-label{font-size:12px;color:#d4537e;margin-bottom:6px;}
+  .progress-bar-bg{background:#fbeaf0;border-radius:20px;height:10px;overflow:hidden;border:0.5px solid #f4c0d1;}
+  .progress-bar{background:linear-gradient(90deg,#ed93b1,#d4537e);height:100%;border-radius:20px;transition:width 0.6s cubic-bezier(.34,1.56,.64,1);}
+
+  .fly-heart{position:absolute;font-size:22px;pointer-events:none;animation:flyUp 1s ease forwards;}
+
+  .confetti-p{position:absolute;width:7px;height:7px;border-radius:2px;pointer-events:none;animation:confettiFall 1.2s ease forwards;}
+</style>
+
+<div class="wrap">
+  <div class="card" id="card">
+    <div class="deco-top">
+      <span class="fstar">✦</span>
+      <span class="fstar">✧</span>
+      <span class="fstar">✦</span>
+    </div>
+
+    <div class="big-heart" id="bigHeart" title="Tap me!">💖</div>
+
+    <p class="to-lbl">for my</p>
+    <p class="to-nm">Love</p>
+
+    <div class="hearts-row">
+      <span class="mh">🩷</span><span class="mh">💗</span><span class="mh">💖</span><span class="mh">💗</span><span class="mh">🩷</span>
+    </div>
+
+    <div class="progress-wrap">
+      <p class="progress-label" id="loveLabel">love meter: tap the heart! 🩷</p>
+      <div class="progress-bar-bg"><div class="progress-bar" id="loveBar" style="width:10%"></div></div>
+    </div>
+
+    <div class="msg-box"><p id="msgText">You make my heart do little happy somersaults every single day. 🥰</p></div>
+
+    <span class="badge" id="badge">forever &amp; always 🌷</span>
+
+    <div class="btn-row">
+      <button class="btn" id="msgBtn">💌 new message</button>
+      <button class="btn" id="confettiBtn">🎉 celebrate!</button>
+      <button class="btn" id="shakeBtn">🥺 send love</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const messages = [
+  "You make my heart do little happy somersaults every single day. 🥰",
+  "Honestly? You're my favourite notification. 📱💕",
+  "I'd choose you in every single lifetime, no hesitation. 🌍",
+  "You're the reason I smile at my phone like a weirdo. 😊",
+  "Life is just better, funnier, and cozier with you in it. 🧸",
+  "You're my person. My favourite person. Always. 💖",
+  "I love you more than words, but I'll keep trying anyway. ✍️",
+  "Just so you know — you're incredibly loved. Like, a lot. 💗",
+  "You + me = my favourite equation. 🧮💕",
+  "Every day with you feels like a little gift. 🎁",
+];
+
+const labels = [
+  "love meter: tap the heart! 🩷",
+  "warming up... 💕",
+  "getting warmer! 💗",
+  "so much love! 💖",
+  "overflowing with love!! 💖💖",
+  "MAXIMUM LOVE REACHED 🎉💖💖💖",
+];
+
+const badges = [
+  "forever & always 🌷",
+  "head over heels 😍",
+  "totally smitten 💫",
+  "yours completely 💌",
+  "love of my life 💖",
+];
+
+let tapCount = 0;
+let msgIndex = 0;
+
+const bigHeart = document.getElementById('bigHeart');
+const loveBar = document.getElementById('loveBar');
+const loveLabel = document.getElementById('loveLabel');
+const msgText = document.getElementById('msgText');
+const badge = document.getElementById('badge');
+const card = document.getElementById('card');
+
+bigHeart.addEventListener('click', function(e) {
+  tapCount++;
+  const pct = Math.min(10 + tapCount * 9, 100);
+  loveBar.style.width = pct + '%';
+  const li = Math.min(Math.floor(tapCount / 2), labels.length - 1);
+  loveLabel.textContent = labels[li];
+  badge.textContent = badges[Math.min(Math.floor(tapCount / 3), badges.length - 1)];
+
+  spawnFlyHeart(e.clientX, e.clientY);
+
+  if (tapCount % 5 === 0) burst(e.clientX, e.clientY);
+});
+
+document.getElementById('msgBtn').addEventListener('click', function() {
+  msgIndex = (msgIndex + 1) % messages.length;
+  const p = document.getElementById('msgText');
+  p.style.opacity = '0';
+  p.style.transform = 'translateY(8px)';
+  p.style.transition = 'opacity 0.25s, transform 0.25s';
+  setTimeout(() => {
+    p.textContent = messages[msgIndex];
+    p.style.opacity = '1';
+    p.style.transform = 'translateY(0)';
+  }, 250);
+});
+
+document.getElementById('confettiBtn').addEventListener('click', function(e) {
+  burst(e.clientX, e.clientY, 20);
+});
+
+document.getElementById('shakeBtn').addEventListener('click', function() {
+  bigHeart.style.animation = 'none';
+  bigHeart.style.animation = 'shake 0.5s ease';
+  setTimeout(() => { bigHeart.style.animation = 'heartbeat 2s ease-in-out infinite'; }, 600);
+  const floats = ['💌','💕','✨','🩷','💗'];
+  const rect = card.getBoundingClientRect();
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.className = 'fly-heart';
+      el.textContent = floats[Math.floor(Math.random() * floats.length)];
+      el.style.left = (20 + Math.random() * 60) + '%';
+      el.style.bottom = '80px';
+      el.style.animationDelay = (i * 0.1) + 's';
+      card.appendChild(el);
+      setTimeout(() => el.remove(), 1200);
+    }, i * 80);
+  }
+});
+
+function spawnFlyHeart(cx, cy) {
+  const el = document.createElement('div');
+  el.className = 'fly-heart';
+  el.textContent = ['💖','💗','🩷','💕'][Math.floor(Math.random()*4)];
+  const rect = card.getBoundingClientRect();
+  el.style.left = (cx - rect.left - 12) + 'px';
+  el.style.top = (cy - rect.top - 12) + 'px';
+  card.appendChild(el);
+  setTimeout(() => el.remove(), 1100);
+}
+
+function burst(cx, cy, count = 10) {
+  const colors = ['#f09595','#b5d4f4','#c0dd97','#fac775','#ed93b1','#9fe1cb'];
+  const rect = card.getBoundingClientRect();
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-p';
+    el.style.background = colors[Math.floor(Math.random()*colors.length)];
+    el.style.left = (cx - rect.left + (Math.random()-0.5)*60) + 'px';
+    el.style.top = (cy - rect.top - 10) + 'px';
+    el.style.animationDelay = (Math.random()*0.3)+'s';
+    el.style.animationDuration = (0.9 + Math.random()*0.5)+'s';
+    card.appendChild(el);
+    setTimeout(() => el.remove(), 1500);
+  }
+}
+</script>
